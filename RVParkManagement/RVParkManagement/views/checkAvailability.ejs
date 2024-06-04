@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Availability</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/allViews.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+  <script type="text/javascript" src="crypto-js.js"></script>
+  
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    main {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .welcome-message {
+        margin-bottom: 30px;
+    }
+
+    .index-image {
+        width: 80%;
+        max-width: 1200px;
+        height: 400px;
+        margin: 0 auto;
+        display: block;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard-options {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .dashboard-option {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        width: 300px;
+    }
+
+    .dashboard-option h2 {
+        color: #333;
+    }
+
+    .dashboard-option p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-option a {
+        background-color: #007bff;
+        border: none;
+        border-radius: 3px;
+        color: #fff;
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .dashboard-option a:hover {
+        background-color: #0056b3;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+
+    /* Set border-radius to 0 to make edges of footer/header square */
+    .card {
+        border-radius: 0;
+    }
+</style>
+  
+  <script>
+    function showRVSizeInput() {
+      var type = document.getElementById("type");
+      var rvSizeInput = document.getElementById("rvSizeInput");
+      if (type.value === "RV Parking" || type.value === "Dry Camping") {
+        rvSizeInput.style.display = "";
+      } else {
+        rvSizeInput.style.display = "none";
+        document.getElementById("rvSize").value = "";
+        document.getElementById("rvSizeError").textContent = "";
+      }
+    }
+
+    function prepareSubmit() {
+      var type = document.getElementById("type").value;
+      var rvSize = document.getElementById("rvSize");
+      // Clear rvSize if Tenting or Storage is selected
+      if (type === "Tenting" || type === "Storage" || type === "Pop Up Trailer") {
+        rvSize.value = '';
+      }
+      var isValid = true;
+
+      // Validate RV Size
+      var rvSize = document.getElementById("rvSize").value;
+      var rvSizeError = document.getElementById("rvSizeError");
+      if (!isValidRVSize(rvSize) && (type === "Dry Camping" || type === "RV Parking")) {
+        rvSizeError.textContent = "Please enter a valid RV size (Integer or decimal).";
+        isValid = false;
+      } else {
+        rvSizeError.textContent = "";
+      }
+
+      // Validate Price Per Night
+      var pricePerNight = document.getElementById("pricePerNight").value;
+      var priceError = document.getElementById("priceError");
+      if (!isValidPrice(pricePerNight)) {
+        priceError.textContent = "Please enter a valid price per night (Integer only).";
+        isValid = false;
+      } else {
+        priceError.textContent = "";
+      }
+
+      // Validate From Date and To Date
+      var fromDate = new Date(document.getElementById("fromDate").value);
+      var toDate = new Date(document.getElementById("toDate").value);
+      var dateError = document.getElementById("dateError");
+
+      // Check if dates are valid and in the future
+      if (!isValidDate(fromDate) || !isValidDate(toDate)) {
+        dateError.textContent = "Please enter valid dates.";
+        isValid = false;
+      } else {
+        dateError.textContent = "";
+      }
+
+      // Check if To Date is later than From Date
+      if (toDate <= fromDate) {
+        dateError.textContent = "\"To Date\" should be later than \"From date\".";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function isValidRVSize(rvSize) {
+      // Allow digits or decimal
+      return /^\d+(\.\d+)?$/.test(rvSize);
+    }
+
+    function isValidPrice(price) {
+      // Allow digits only
+      return /^\d+$/.test(price);
+    }
+
+    function isValidDate(date) {
+      if (!(date instanceof Date) || isNaN(date)) return false;
+      
+      // Create a new date object for the current date with time set to midnight
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);  // Reset hours, minutes, seconds, and milliseconds to zero
+    
+      return date >= today;
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    // Function to handle page load
+    function onPageLoad() {
+      // Reset the page based on the selected type
+      var type = document.getElementById("type").value;
+      if (type === "Tenting" || type === "Storage" || type === "Pop Up Trailer") {
+        // If the type is "Tenting", hide the RV size input and clear its value and error message
+        document.getElementById("rvSizeInput").style.display = "none";
+        document.getElementById("rvSize").value = "";
+        document.getElementById("rvSizeError").textContent = "";
+      }
+    }
+  </script>
+
+</head>
+
+<body onload="onPageLoad()">
+
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark p-3 ">
+    <a class="navbar-brand" href="#">HAFB FamCamp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="./home">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Your Reservations
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="./manageReservations">Modify Reservation</a>
+                    <a class="dropdown-item" href="./reservationHistory">Reservation History</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="./checkAvailability">Make Reservation</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/changeAccountInfo">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Policies and Guidelines</a> <!-- FIXME: NEED TO ADD -->
+            </li>
+        </ul>
+    </div>
+    <a id="profile-icon" href="/accountOverview">
+        <i class="bi bi-person-fill text-white fs-4"></i>
+    </a>
+    <form class=" my-2 my-lg-0 ml-2 mr-2">
+        <div class="col-md-12 text-center">
+            <a href="/logout"><button class="btn btn-danger text-center btn-lg bp-5"
+                    type="button">Logout</button></a>
+        </div>
+    </form>
+</nav>
+
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+          <!-- Back button -->
+          <button class="back-button" onclick="goBack()">
+            < Back</button>
+              <div class="text-center">
+                <h3 class="text-primary">Check Availability</h3>
+              </div>
+              <form method="post" onsubmit="return prepareSubmit()">
+                <div class="p-4">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary"><i class="bi bi-p-circle-fill text-white"></i></span>
+                    <select class="form-select" id="type" name="type" onchange="showRVSizeInput()">
+                      <option value="RV Parking">RV Parking</option>
+                      <option value="Tenting">Tenting</option>
+                      <option value="Dry Camping">Dry Camping</option>
+                      <option value="Storage">Storage</option>
+                      <option value="Pop Up Trailer">Pop Up Trailer</option>
+                    </select>
+                  </div>
+                  <div id="rvSizeInput" class="input-group mb-3">
+                    <span class="input-group-text bg-primary"><i class="bi bi-truck-front-fill text-white"></i></span>
+                    <input type="text" class="form-control" id="rvSize" name="rvSize" placeholder="RV Size (ft)">
+                    <p id="rvSizeError" class="text-danger" style="height:25px"></p>
+                  </div>
+                  <div id="priceInput" class="input-group mb-3">
+                    <span class="input-group-text bg-primary"><i class="bi bi-currency-dollar text-white"></i></span>
+                    <input type="text" class="form-control" id="pricePerNight" name="pricePerNight"
+                      placeholder="Price Limit">
+                    <p id="priceError" class="text-danger" style="height:25px"></p>
+                  </div>
+                  <div id="fromDateInput" class="input-group mb-3">
+                    <span class="input-group-text bg-primary"><i class="bi bi-calendar text-white"></i></span>
+                    <input type="text" class="form-control" id="fromDate" name="fromDate"
+                      placeholder="From Date (MM/DD/YYYY)" onfocus="(this.type='date')"
+                      onblur="if(this.value=='') this.type='text'">
+                  </div>
+                  <div id="toDateInput" class="input-group mb-3">
+                    <span class="input-group-text bg-primary"><i class="bi bi-calendar text-white"></i></span>
+                    <input type="text" class="form-control" id="toDate" name="toDate" placeholder="To Date (MM/DD/YYYY)"
+                      onfocus="(this.type='date')" onblur="if(this.value=='') this.type='text'">
+                  </div>
+                  <p id="dateError" class="text-danger" style="height:25px"></p>
+                  <div>
+                    <p id="message" class="text-danger" style="height:25px"><%- locals.message %></p>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-primary mt-2" type="submit">Search</button>
+                  </div>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- <div class="card text-center text-white bg-secondary ">
+      <div class="card-header">
+          <p>&copy; 2024 RV Park Management</p>
+      </div>
+  </div> -->
+
+    
+  <footer>
+    <p>&copy; 2024 RV Park Management</p>
+</footer>
+
+  <!-- Bootstrap scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+
+</body>
+
+</html>

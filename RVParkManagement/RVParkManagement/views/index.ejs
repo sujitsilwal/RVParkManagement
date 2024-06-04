@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Index page
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css">
+    <style>
+        .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rounded {
+            width: 100%;
+            max-width: 50%;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .welcome-message {
+            margin-bottom: 30px;
+        }
+
+        .index-image {
+            width: 80%;
+            max-width: 1200px;
+            height: 400px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .dashboard-option {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .dashboard-option h2 {
+            color: #333;
+        }
+
+        .dashboard-option p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-option a {
+            background-color: #007bff;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-option a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Set border-radius to 0 to make edges of footer/header square */
+        .card {
+            border-radius: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark p-3 ">
+        <a class="navbar-brand" href="#">HAFB FamCamp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <main>
+        <div class="container-fluid vh-30" style="margin-top:10px">
+            <div class="rounded">
+                <div class="shadow-lg p-5 bg-light">
+                    <h1 class="text-center fw-bold">HAFB FamCamp</h1>
+                    <div>
+                        <h2 class="text-center m-2">Welcome</h2>
+                    </div>
+                    <div>
+                        <h4><br> 5622 Park Ln. Bldg. #564 <br>
+                            Hill AFB, UT 84056 <br>
+                            (801) 775-3250 <br><br></h4>
+                    </div>
+                    <div>
+                        <p>Office Hours: Monday - Friday <br>0800 - 1600</p>
+                    </div>
+                    <div>
+                        <div class="m-5">
+                            <table class="table table-bordered m-10">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Check-In</th>
+                                        <th scope="col">13:00</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Check-Out</th>
+                                        <th scope="col">12:00</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div>
+                            <h4 class="text-center">Some of Our Amenities:</h4>
+                            <div style="display: inline-block;">
+                                <ul class="text-left">
+                                    <li>Dry Storage</li>
+                                    <li>Rec Room</li>
+                                    <li>Laundry</li>
+                                </ul>
+                            </div>
+                            <div style="display: inline-block; margin-left: 20px;">
+                                <ul class="text-left">
+                                    <li>Ice</li>
+                                    <li>Postal Service</li>
+                                    <li>And much more...</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="m-2 text-center">Policies and Guidlines</h4>
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="flase"
+                                                aria-controls="collapseOne">
+                                                Payments
+                                            </button>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p> Payments can be made with Visa/MasterCard or cash in the office during
+                                                regular hours.
+                                                <br> After-Hours arrivals must pay cash only and use the check-in booth
+                                                located next to the office. <br> Personal checks are not accepted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                                Reservations
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p> Reservations can be made up to 6 months in advance and must be paid in
+                                                full
+                                                at time of reservation. <br> <br>
+                                                Cancellations made at least 3 days before arrival will be charged a $10
+                                                fee.
+                                                Cancellations made less than 3 days rior will be charged a 1 day fee.
+                                                <br> Cancellations for holidays or special events will be charged a 1
+                                                day
+                                                fee. <br><br>
+                                                Macimum length of stay April-October is 14 consecutive days except for
+                                                those
+                                                traveling on PCS orders. <br>
+                                                Long term stays are allowed October 15th to April 1st. For detailed
+                                                information, please contact the FamCamp office.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseThree" aria-expanded="false"
+                                                aria-controls="collapseThree">
+                                                Guidelines
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p> In an effort to ensure compliance with all public health and safety
+                                                requirements, RVs are subject to inspection when conditions observed
+                                                from
+                                                the
+                                                exterior of the RB suggest a potential hazaed or substandard condition
+                                                exists within the unit. <br>
+                                                In the even of an inspection, all RB units must be able to demostrate
+                                                the
+                                                following:
+                                            <ul>
+                                                <li>Proper connection to the park's fresh water system using the unit's
+                                                    exterior water connection. <br>
+                                                    The fresh water connection on the unit should inspected to ensure it
+                                                    is leak-free and made of a material approced for potable water.</li>
+                                                <li>Power cord and/or approved adapter is approced for the RV use and
+                                                    maintained in a safe operating condition.</li>
+                                                <li>The sewer drain connection on the unit must be gas tight and
+                                                    leak-free. Hose must be constructed of minimum schdule 40 ABS
+                                                    plastic approved
+                                                    for drain and waste.
+                                                </li>
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card" id="headingFour">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseFour" aria-expanded="false"
+                                                aria-controls="collapseFour">
+                                                Pets
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            Leashed and vaccinated pets are welcome provided pet owners adhere to the
+                                            following installtion requirements:
+                                            <ul>
+                                                <li>Animal waste will picked up and properly disposed on immediately.
+                                                </li>
+                                                <li>Pets will remain on a leash in control of the owner unless in the
+                                                    designated dog park area.</li>
+                                                <li>When using the dog park, the pet owner must be present at all times.
+                                                </li>
+                                                <li>Dogs will not be chaned outdoors or left unattended at any time.
+                                                </li>
+                                                <li>In consideration of other guests, nuisance pet begavior will not be
+                                                    permitted. This is to include but not be limited to pets that
+                                                    display aggression and/or excessive barking.
+                                                </li>
+                                                <li>2 pet maximum</li>
+                                                <li>Dogs with any of the following breed lineage are restricted from
+                                                    FamCamp: Pit bulls, Staffordshire Terriers, Rottweilers, Chow Chows,
+                                                    Doberman
+                                                    Pinschers, wolf hybrids
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card" id="headingFive">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                data-target="#collapseFive" aria-expanded="false"
+                                                aria-controls="collapseFive">
+                                                Parking
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            Vehicles are only allowed to park in assigned spaces. Parking on vacant
+                                            sites or roadways is not authorized. Please see Camp Host or Staff for
+                                            information on overflow
+                                            parking and visitor areas. Parking on grass in not permitted.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between button-container">
+                        <div class="text-left">
+                            <a href="register"><button class="btn btn-primary text-center btn-md bp-2"
+                                    type="submit">Register</button></a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between button-container">
+                        <div class="text-left">
+                            <a href="loginuser"><button class="btn btn-primary text-center btn-lg bp-2"
+                                    type="submit">Login</button></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+    <p>&copy; 2024 RV Park Management</p>
+</footer>
+
+    <!-- <div class="card text-center text-white bg-secondary ">
+        <div class="card-header">
+            <p>&copy; 2024 RV Park Management</p>
+        </div>
+    </div> -->
+</body>
+<!-- Bootstrap scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

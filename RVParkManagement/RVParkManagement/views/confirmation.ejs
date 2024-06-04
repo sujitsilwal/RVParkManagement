@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/font/bootstrap-icons.css">
+    <style>
+        .confirmation {
+            line-height: 0.7;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid vh-100" style="margin-top:10px">
+        <div class="" style="margin-top:100px">
+            <div class="rounded d-flex justify-content-center">
+                <div class="col-md-5 col-sm-12 shadow-lg p-5 bg-light">
+                    <div class="text-center">
+                        <h3 class="text-dark">Confirmation</h3>
+                    </div>
+                    <% if (reservationConfirmation && reservationConfirmation.length> 0) { %>
+                        <div class="confirmation">
+                            <!-- Pad reservationId with leading zeros -->
+                            <p>Reservation ID: <%= String(reservationId).padStart(7, '0' ) %>
+                            </p>
+                            <p>Type of Stay: <%= reservationConfirmation[0].reservation_type %>
+                            </p>
+                            <% if (reservationConfirmation[0].reservation_type !=='Tenting' &&
+                                reservationConfirmation[0].reservation_type !=='Storage' && reservationConfirmation[0].reservation_type !== 'Pop Up Trailer') { %>
+                                <p>Size of RV: <%= reservationConfirmation[0].rv_size %> ft</p>
+                                <% } %>
+                                    <p>Site in the RV Park: Site <%= reservationConfirmation[0].site_number %>
+                                    </p>
+                                    <p>Date Reservation was made: <%=
+                                            reservationConfirmation[0].date_of_reservation.toDateString() %>
+                                    </p>
+                                    <p>Length of Reservation: <%= reservationConfirmation[0].from_date.toDateString() %>
+                                            - <%= reservationConfirmation[0].to_date.toDateString() %>
+                                    </p>
+                                    <p>----------------------------------------------------------------------------</p>
+                                    <p>Amount: $<%= reservationConfirmation[0].amount %>
+                                    </p>
+                        </div>
+                        <% } else { %>
+                            <p>There is no reservation with this reservation_id</p>
+                            <% } %>
+                                <p class="text-center mt-5">
+                                    <span class="text-primary"><a href="/home">Close?</a></span>
+                                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

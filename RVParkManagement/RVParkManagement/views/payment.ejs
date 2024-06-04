@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Availability</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="font/bootstrap-icons.css" />
+  <script type="text/javascript" src="crypto-js.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid vh-100" style="margin-top:10px">
+    <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+          <div class="text-center">
+            <h3 class="text-primary">Payment</h3>
+          </div>
+          <form id="paymentForm" method="post">
+            <div class="p-4">
+              <p>Amount: $<%= Number(amount).toFixed(2) %>
+              </p>
+              <div id="rvSizeInput" class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i class="bi bi-credit-card-fill text-white"></i></span>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card Number">
+              </div>
+              <div>
+                <p id="errorMessage" class="text-danger" style="height:25px"></p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary mt-2" type="submit">
+                  Pay Now
+                </button>
+              </div>
+              <p class="text-center mt-5">
+                <span class="text-primary"><a href="/home">Go Back?</a></span>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+      var cardNumber = document.getElementById('cardNumber').value;
+      var errorMessage = document.getElementById('errorMessage');
+      if (!isValidCardNumber(cardNumber)) {
+        errorMessage.textContent = "Not a valid card number";
+        event.preventDefault();
+      } else {
+        errorMessage.textContent = "";
+      }
+    });
+
+    function isValidCardNumber(cardNumber) {
+      return cardNumber.length >= 12 && cardNumber.length <= 16 && /^\d+$/.test(cardNumber);
+    }
+  </script>
+</body>
+
+</html>
